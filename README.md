@@ -51,8 +51,7 @@ These pins are taken directly from the code.
 
 | Function | Arduino Pin |
 |---------|--------------|
-| Volume  | A0           |
-| control |              |
+| Volume control | A0           |
 
 ### DFPlayer Mini
 
