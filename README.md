@@ -68,7 +68,7 @@ These pins are taken directly from the code.
 
 | OLED Pin | Arduino |
 |----------|---------|
-| VCC      | 5V      |
+| VCC      | 5V/3.3V |
 | GND      | GND     |
 | SDA      | A4      |
 | SCL      | A5      |
