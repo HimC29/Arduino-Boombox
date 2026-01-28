@@ -1,10 +1,9 @@
 # Arduino-Boombox
 
-Arduino-Boombox is a fully menu driven MP3 player built with an Arduino Uno and a DFPlayer Mini.  
-It uses an OLED screen, buttons, and a volume knob to create a small standalone boombox that can browse folders, select songs, and play music from a microSD card.
+[![Arduino-Boombox](https://img.shields.io/badge/Arduino-Boombox-orange)]()
 
-You can find pictures of the final result in /Sample pictures in this repo, or you can find videos of it playing music on my TikTok, user: HimC29.
-Also if you need help, DM me there.
+Arduino-Boombox is a fully menu-driven MP3 player built with an Arduino Uno and a DFPlayer Mini.  
+It uses an OLED screen, buttons, and a volume knob to create a compact standalone boombox that can browse folders, select songs, and play music from a microSD card.
 
 ---
 
@@ -14,7 +13,7 @@ Also if you need help, DM me there.
 - Folder and song browser on a 0.96 inch I2C OLED display  
 - Animated now playing screen with waveform  
 - 4 physical navigation buttons  
-- Analog potentiometer for real time volume control  
+- Analog potentiometer for real-time volume control  
 - Automatic next song when a track finishes  
 - Reset menu using button combo  
 - USB powered through Arduino  
@@ -28,15 +27,13 @@ Also if you need help, DM me there.
 - 0.96 inch I2C OLED display (SSD1306, address 0x3C)  
 - 4 push buttons  
 - Potentiometer  
-- 8 ohm 3W speaker  
+- 8Ω 3W speaker  
 - microSD card  
 - Jumper wires and breadboard or soldered board  
 
 ---
 
 ## Pin Connections
-
-These pins are taken directly from the code.
 
 ### Buttons (INPUT_PULLUP)
 
@@ -49,9 +46,9 @@ These pins are taken directly from the code.
 
 ### Potentiometer
 
-| Function | Arduino Pin |
-|---------|--------------|
-| Volume control | A0           |
+| Function       | Arduino Pin |
+|----------------|-------------|
+| Volume control | A0          |
 
 ### DFPlayer Mini
 
@@ -77,34 +74,27 @@ These pins are taken directly from the code.
 
 ## How It Works
 
-The Arduino communicates with the DFPlayer Mini over software serial on pins 10 and 11.  
-MP3 files are loaded from a microSD card in the DFPlayer.
-
-The OLED display shows a folder menu, song list, and a now playing screen.  
-Buttons are used to move through menus, select songs, go back, and pause or resume playback.  
-The potentiometer is read through analog pin A0 and mapped to the DFPlayer volume level.
-
-When a song finishes, the next song in the current folder is played automatically.
+- Arduino communicates with DFPlayer Mini over software serial (pins D10/D11)  
+- OLED shows folder menu, song list, and now playing screen with waveform animation  
+- Buttons navigate menus, select songs, and pause/resume playback  
+- Potentiometer adjusts volume in real-time  
+- Songs automatically advance when finished  
+- Reset menu can be accessed with Up + Down buttons  
 
 ---
 
-## Folder and Song System
+## Folder & Song System
 
-Songs are stored in arrays inside the code and grouped into folders.
+- Songs are grouped into folders:  
+  - POP  
+  - Vocal Synth Songs  
+  - J-POP  
+  - K-POP  
+  - Phonk  
+  - Memes  
 
-The following folders exist:
-
-- POP  
-- Vocal Synth Songs  
-- J-POP  
-- K-POP  
-- Phonk  
-- Memes  
-
-Each folder maps to a range of tracks on the microSD card.  
-The track numbers must match the order defined in the code.
-
-Track number 121 is skipped because that file is corrupted on the SD card, so the code automatically jumps over it.
+- Each folder maps to a range of tracks on the microSD card  
+- Track number 121 is automatically skipped due to corruption  
 
 ---
 
@@ -112,20 +102,20 @@ Track number 121 is skipped because that file is corrupted on the SD card, so th
 
 | Button | Action                                       |
 |--------|----------------------------------------------|
-| Up     | Move up in menu or go to previous song       |
-| Down   | Move down in menu or go to next song         |
-| Center | Enter folder, play song, or pause and resume |
+| Up     | Move up in menu / previous song              |
+| Down   | Move down in menu / next song                |
+| Center | Enter folder / play song / pause/resume      |
 | Back   | Go back to previous menu                     |
 
 Volume is controlled with the potentiometer.
 
 ---
 
-## Reset Mode
+## Reset Menu
 
-Hold the Up and Down buttons together for about 1.5 seconds to open the reset screen.  
-Use Up or Down to select Yes or No, then press Center to confirm.  
-If Yes is selected, the Arduino will reset using the watchdog timer.
+- Hold Up + Down buttons for 1.5 seconds to open reset screen  
+- Use Up/Down to select Yes or No, press Center to confirm  
+- Yes triggers Arduino reset via watchdog timer  
 
 ---
 
@@ -138,42 +128,34 @@ This project uses the following Arduino libraries:
 - DFRobot DFPlayer Mini  
 - SoftwareSerial  
 
-Install these using the Arduino Library Manager before uploading the code.
+> Install these using the Arduino Library Manager before uploading code.
 
 ---
 
 ## Power
 
-The boombox is powered through the Arduino USB port.  
-You can plug it into a computer, a USB power bank, or any realiable power source that can be connected to the Arduino.
-(Make sure the power supply provides enough power)
+- Powered through Arduino USB port  
+- Can use computer USB or USB power bank  
+- Ensure the power source provides enough current for the Arduino and speaker  
 
 ---
 
 ## Setup
 
 1. Format a microSD card to FAT32  
-2. Copy your MP3 files to the root of the card  
-IMPORTANT:
-   I have all the songs I put on my microSD in https://drive.google.com/drive/folders/1z0RZe7GcZDdXmuQQcoPcLfecUO2qmfpO . You can upload those onto your card.
-   Those songs are copyrighted, so be careful with them.
-   DFPlayer does not actually read in lexographical order of numbers, instead it reads from the earliest file uploaded to the latest.
-   Because of that you cannot upload all at once as it won't always save at the correct order.
-   Use my Python script that I provided to move those files in lexographical order into the microSD (name your files in the format of 001, 002... 100, 101 etc.)
-   This script only works on Linux.
-   
-3. Make sure the file order matches the song list in the code  
-4. Insert the microSD card into the DFPlayer Mini  
-5. Wire the components according to the pin table above  
-6. Upload the Arduino code  
-7. Power the Arduino through USB  
+2. Copy MP3 files to the root of the card  
+   - Make sure the file order matches the song list in the code  
+   - DFPlayer reads files by upload order, not numerical order  
+   - Use the provided Python script (Linux) to sort files in lexicographical order (001, 002, … 100, 101, etc.)  
+3. Insert the microSD card into DFPlayer Mini  
+4. Wire components according to the pin table above  
+5. Upload the Arduino code  
+6. Power the Arduino via USB  
 
 ---
 
 ## Notes
 
-This project uses PROGMEM to store song and folder names in flash memory to avoid running out of RAM.  
-This was required because of the large number of songs.
-
----
-
+- Uses PROGMEM to store folder and song names in flash memory to save RAM  
+- Fully functional and tested – all features are implemented  
+- Reset page is available via button combo for safety and quick restarts
