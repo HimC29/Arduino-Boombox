@@ -1,4 +1,3 @@
-// Boombox using Arduino - CS PROJECT M2 2025/2026 - Chong Zi Him, Fong Kai Jun, Teo Cheng Jun
 // OPTIMIZED VERSION - Reduced RAM usage and improved stability
 
 #include <Wire.h>
